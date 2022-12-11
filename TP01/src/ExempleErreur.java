@@ -7,7 +7,7 @@ public class ExempleErreur {
 
 	/** Méthode principale */
 	public static void main(String[] args) {
-		Point p1 = new Point();
+		Point p1 = new Point(5,2); //* l'erreur vient du fait qu'on s'attend à un constructeur avec deux parametres
 		p1.setX(1);
 		p1.setY(2);
 		p1.afficher();
