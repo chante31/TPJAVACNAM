@@ -87,8 +87,6 @@ public class PointTest {
 /**---------------implementation des test de couleurs , couleurs verte et setcouleur-------------*/
 	@Test
 	public void testgetCouleur(){
-		p1.getCouleur();
-		p2.getCouleur();
 		assertEquals(Color.green,p1.getCouleur());
 		assertEquals(Color.green,p2.getCouleur());
 	}
