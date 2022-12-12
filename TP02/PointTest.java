@@ -1,5 +1,6 @@
 import org.junit.*;
 
+
 import java.awt.*;
 
 import static org.junit.Assert.*;
@@ -99,5 +100,8 @@ public class PointTest {
 	assertEquals(Color.blue,p2.getCouleur());
 
 	}
+
+
+
 
 }
