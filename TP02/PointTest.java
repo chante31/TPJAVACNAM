@@ -1,5 +1,9 @@
 import org.junit.*;
+
+import java.awt.*;
+
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /** Programme de test de la classe Point.
   * @author	Xavier Crégut
@@ -79,6 +83,23 @@ public class PointTest {
 		p2.translater(-2, -4);
 		assertEquals(2.0, p2.getX(), EPSILON);
 		assertEquals(-6.0, p2.getY(), EPSILON);
+	}
+/**---------------implementation des test de couleurs , couleurs verte et setcouleur-------------*/
+	@Test
+	public void testgetCouleur(){
+		p1.getCouleur();
+		p2.getCouleur();
+		assertEquals(Color.green,p1.getCouleur());
+		assertEquals(Color.green,p2.getCouleur());
+	}
+
+	@Test
+	public void testsetCouleur(){
+		p1.setCouleur(Color.blue);
+		p2.setCouleur(Color.blue);
+	assertEquals(Color.blue,p1.getCouleur());
+	assertEquals(Color.blue,p2.getCouleur());
+
 	}
 
 }
