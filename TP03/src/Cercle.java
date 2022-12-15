@@ -8,27 +8,80 @@ public class Cercle implements Mesurable2D{
         Point p2=new Point(4, 5);
 
         Cercle cercle1=new Cercle(p1,2.5);
-        Cercle cercle2=new Cercle(p1,p2);
+
         System.out.println(cercle1);
 
     }
 
     private Point centre;
-    private Point centre2;
+
     private double rayon;
-    private Color color;
-    //?private double diametre;
+    private double diametre;
+
+    private Color couleur;
+
+    public double getDiametre() {
+        return diametre;
+    }
+
+    public void setDiametre(double diametre) {
+        assert (diametre>0);
+        this.diametre = rayon*2;
+    }
 
     public Cercle(Point centre, double rayon) {
+        assert(centre != null);
+        assert rayon>0;
         this.centre=centre;
         this.rayon=rayon;
-
+        this.couleur=Color.BLUE;
+    }
+    public Cercle(Point c1, Point c2 ) {
+        assert(c1 != null);
+        assert(c2 != null);
+        assert (c1.distance(c2)) !=0;
+        double x = (c1.getX()+c1.getX())/2;
+        double y = (c1.getY()+c2.getY())/2;
+        this.rayon=c1.distance(c2)/2;
+        this.diametre=c1.distance(c2);
+        centre = new Point(x, y);
+    }
+    public Cercle(Point c1, Point c2,Color couleur ) {
+        assert(c1 != null);
+        assert(c2 != null);
+        assert (centre !=null);
+        double x = (c1.getX()+c1.getX())/2;
+        double y = (c1.getY()+c2.getY())/2;
+        this.centre = new Point(x, y);
+        this.setCouleur(couleur);
 
     }
-    public Cercle(Point centre, Point centre2) {
-        this.centre=centre;
-        this.centre2=centre2;
 
+    public Color getCouleur() {
+        return couleur;
+    }
+
+    public void setCouleur(Color couleur) {
+        assert(couleur != null);
+        this.couleur = couleur;
+    }
+
+    /**F
+     *
+     * @param p1
+     * @param p2
+     */
+    public static Cercle creerCercle(Point p1, Point p2) {
+       assert (p1!=null);
+       assert(p2 !=null);
+       double rayon = p1.distance(p2) / 2;
+
+        double x = (p1.getX()+p2.getX())/2;
+        double y = (p1.getY()+p2.getY())/2;
+        Point centre = new Point(x, y);
+        Cercle c = new Cercle(centre, rayon);
+
+        return c;
 
     }
 
@@ -56,20 +109,17 @@ public class Cercle implements Mesurable2D{
     }
 
     public void setRayon(double rayon) {
+        assert (rayon >0 );
         this.rayon = rayon;
     }
 
     /*---------------------------est ce que cette méthode est correcte--------------------------------------------------------------*/
-    public void setDiametre(double rayon) {
-        this.rayon = rayon*2;
-    }
-    public double getDiametre() {
-        return rayon*2;
-    }
+
 
 
 
     public Double diametre() {
+
         return rayon*2;
     }
 
@@ -85,21 +135,22 @@ public class Cercle implements Mesurable2D{
         return Math.PI*rayon*rayon;
     }
 
-    public Color getColor() {
-        return color;
-    }
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
 
     /*méhode creer cercle*/
-    public void creerCercle(Point point) {
+
+
+    public Boolean contient(Point point){
+        assert point!=null;
+        return centre.distance(point)<rayon;
 
     }
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
+
         return "C"+rayon+"@"+"("+centre.getX()+","+centre.getY()+")";
     }
+
+
+
 }
