@@ -21,12 +21,12 @@ public class Cercle implements Mesurable2D{
     private Color couleur;
 
     public double getDiametre() {
-        return diametre;
+        return rayon*2;
     }
 
     public void setDiametre(double diametre) {
         assert (diametre>0);
-        this.diametre = rayon*2;
+        this.diametre =diametre;
     }
 
     public Cercle(Point centre, double rayon) {
@@ -86,11 +86,13 @@ public class Cercle implements Mesurable2D{
     }
 
     public Point getCentre() {
-        return centre;
+
+        return new Point(this.centre.getX(),this.centre.getY());
     }
 
     public void setCentre(Point centre) {
-        this.centre = centre;
+
+        this.centre =new Point(centre.getX(),centre.getY());
     }
 
 	/*  equivalent au setter public void changerRayon(double r) {
@@ -99,13 +101,17 @@ public class Cercle implements Mesurable2D{
 	*/
 
     public void translater(double vx, double vy) {
+       this.centre.setX(vx);
+       this.centre.setY(vy);
+        setCentre(centre);
+        this.centre.translater(vx, vy);
 
-        centre.translater(vx, vy);
+
 
     }
 
     public double getRayon() {
-        return rayon;
+        return diametre/2;
     }
 
     public void setRayon(double rayon) {
@@ -118,10 +124,7 @@ public class Cercle implements Mesurable2D{
 
 
 
-    public Double diametre() {
 
-        return rayon*2;
-    }
 
     @Override
     public double perimetre() {
@@ -142,13 +145,13 @@ public class Cercle implements Mesurable2D{
 
     public Boolean contient(Point point){
         assert point!=null;
-        return centre.distance(point)<rayon;
+        return centre.distance(point)<=rayon;
 
     }
     @Override
     public String toString() {
 
-        return "C"+rayon+"@"+"("+centre.getX()+","+centre.getY()+")";
+        return "C"+rayon+"@"+"("+centre.getX()+", "+centre.getY()+")";
     }
 
 
