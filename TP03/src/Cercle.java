@@ -32,7 +32,7 @@ public class Cercle implements Mesurable2D{
     public Cercle(Point centre, double rayon) {
         assert(centre != null);
         assert rayon>0;
-        this.centre=centre;
+        this.centre=new Point(centre.getX(), centre.getY());
         this.rayon=rayon;
         this.couleur=Color.BLUE;
     }
@@ -101,9 +101,9 @@ public class Cercle implements Mesurable2D{
 	*/
 
     public void translater(double vx, double vy) {
-       this.centre.setX(vx);
-       this.centre.setY(vy);
-        setCentre(centre);
+     //  this.centre.setX(vx);
+       //this.centre.setY(vy);
+       // setCentre(centre);
         this.centre.translater(vx, vy);
 
 

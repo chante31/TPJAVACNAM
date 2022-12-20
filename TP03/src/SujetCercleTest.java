@@ -28,6 +28,7 @@ public class SujetCercleTest {
 
 		// Construire les cercles
 		C1 = new Cercle(A, 2.5);
+
 		C2 = new Cercle(new Point(6, 1), 2);
 		C2.setCouleur(Color.yellow);
 	}
