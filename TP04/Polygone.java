@@ -9,17 +9,22 @@ public class Polygone {
 
     public static void main(String[] args) {
         Polygone polygone=new Polygone(5);
-        polygone.sommets.add(new Point(1,2));
-        polygone.sommets.add(new Point(4,5));
-        polygone.sommets.add(new Point(3,7));
-        polygone.sommets.add(new Point(2,8));
-        polygone.sommets.add(new Point(5,9));
+        Point p1 = new Point(3, 2);
+        Point p2 = new Point(3, 6);
+        Point p3 = new Point(11, 4);
+        Point p4 = new Point(7, 9);
+        polygone.sommets.add(p2);
+        polygone.sommets.add(p1);
+        polygone.sommets.add(p3);
+        polygone.sommets.add(p4);
         polygone.ajouterSommet(new Point(8,5),2);
 
         Ecran ecran = new Ecran("polygone", 600, 400, 20);
         ecran.dessinerAxes();
         polygone.afficher();
         polygone.dessinerPolygone(ecran);
+        polygone.dessinerlignePolygone(ecran);
+
         System.out.println("\n le polygone est de degré " +polygone.getsommet());
 
     }
@@ -80,13 +85,26 @@ public class Polygone {
     }
 
     public Afficheur dessinerPolygone(Afficheur ecran){
+      // Ligne ligne=new Ligne();
         for(Point sommet: sommets){
            sommet.dessiner(ecran);
-
+           // sommet.dessiner(ecran.dessinerLigne(sommet.getX(),sommet.getY(),););
 
         }
         return ecran;
     }
 
+    public void dessinerlignePolygone(Afficheur ecran){
+
+        for(int i=0 ; i<sommets.size()-1;i++){
+
+            ecran.dessinerLigne(sommets.get(i).getX(),sommets.get(i).getY(),sommets.get(i+1).getX(),sommets.get(i+1).getY(),Color.BLUE);
+
+        }
+        Point premier=sommets.get(0);
+        Point dernier=sommets.get(sommets.size()-1);
+        ecran.dessinerLigne(dernier.getX(), dernier.getY(), premier.getX(), premier.getY(), Color.BLUE);
+
+    }
 
     }
