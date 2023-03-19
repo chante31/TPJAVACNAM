@@ -6,12 +6,10 @@ import java.nio.file.Paths;
 
 public class CLIClassiqueNew {
 
-
-
-
-        public static Configuration configuration(String... args) {
-            Configuration config = new Configuration();
+        public static ConfigurationNew configuration(String... args) {
+            ConfigurationNew configNew = new ConfigurationNew();
             boolean finOptions = false;
+            String message="Bienvenue";
             int i = 0;
             while (i < args.length && ! finOptions) {
 
@@ -37,10 +35,13 @@ public class CLIClassiqueNew {
                         }
                     case "-E": // Valeur de la précision à atteindre
                         try {
+
                             FileWriter fw = new FileWriter("C:/temp/textFile.txt");
-                            fw.write("Bienvenut");
+                            fw.write(message);
                             fw.close();
+                            //fl.insert(config.message)
                             System.out.println("Le texte a été écrit avec succès, veuillez verifier dans votre fichier Temp");
+                            break;
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -49,7 +50,7 @@ public class CLIClassiqueNew {
                 i++;
             }
 
-            return config;
+            return configNew;
         }
     }
 
