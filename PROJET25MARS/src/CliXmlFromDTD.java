@@ -45,7 +45,7 @@ public class CliXmlFromDTD {
         c.setAttribute("acces", "C");
         c.appendChild(document.createTextNode("Mode matrice creuse"));
         cli.appendChild(c);
-
+        //Création du fichier xml dans le dossier C
         TransformerFactory transformerFactory =TransformerFactory.newInstance();
         Transformer transformer=transformerFactory.newTransformer();
         DOMSource source=new DOMSource(document);
