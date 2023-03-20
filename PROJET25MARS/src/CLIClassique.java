@@ -10,6 +10,7 @@ public class CLIClassique {
 
             switch (arg) {
 
+				//
                     case "-K": // Valeur de l'indice à calculer
                         try {
                         config.indice = Integer.parseInt(args[++i]);
