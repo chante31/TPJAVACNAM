@@ -33,7 +33,7 @@ public interface Agenda {
      * @return vrai si l'agenda est modifié
      * @throws CreneauInvalideException si le créneau est invalide
      */
-    boolean annuler(int creneau);
+    boolean annuler(int creneau) throws LibreException;
 
     /**
      * Obtenir le rendez-vous pris à une creneau donnée.
@@ -42,6 +42,6 @@ public interface Agenda {
      * @return le rendez-vous à le créneau donnée
      * @throw LibreException si pas de rendez-vous à ce créneau
      */
-    String getRendezVous(int creneau);
+    String getRendezVous(int creneau) throws LibreException;
 
 }

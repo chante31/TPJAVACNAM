@@ -15,12 +15,6 @@ public class AgendaIndividuel extends AgendaAbstrait {
     public AgendaIndividuel(String nom) {
         super(nom);
         this.rendezVous = new String[Agenda.CRENEAU_MAX + 1];
-
-
-
-
-
-
         // On gaspille une case (la première qui ne sera jamais utilisée)
         // mais on évite de nombreux « creneau - 1 »
     }
@@ -32,8 +26,11 @@ public class AgendaIndividuel extends AgendaAbstrait {
 // pourquoi quand on interverti le test ne fonctionne pas?---------------------------------------------------------------
         if ( rdv == null )throw new IllegalArgumentException();
         if ( rdv.isEmpty() )throw new IllegalArgumentException("");
-         if (creneau < CRENEAU_MIN | creneau > CRENEAU_MAX) throw new CreneauInvalideException();
+        if (creneau < CRENEAU_MIN | creneau > CRENEAU_MAX) throw new CreneauInvalideException();
+        if(this.rendezVous[creneau]!=null )throw new OccupeException();
         this.rendezVous[creneau] = rdv;
+
+
     }
 
 
@@ -47,9 +44,11 @@ public class AgendaIndividuel extends AgendaAbstrait {
 
 
     @Override
-    public String getRendezVous(int creneau) {
+    public String getRendezVous(int creneau) throws LibreException {
 
         if(creneau < CRENEAU_MIN | creneau > CRENEAU_MAX)throw new CreneauInvalideException();
+        /********************************************************************* est ce que cette implémentation est correcte*/
+        if(this.rendezVous[creneau]==null)throw new LibreException();
 
         return this.rendezVous[creneau];
     }
