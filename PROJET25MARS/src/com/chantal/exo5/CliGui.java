@@ -2,73 +2,124 @@ package com.chantal.exo5;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Logger;
 
-public class CliGui extends JFrame {
+
+public class CliGui extends JPanel{
     public JPanel getPanel() {
         return panel;
     }
 
-    private JPanel panel, panel2;
-    private JButton creuseButton, pleineButton, plusButton,clearButton;
-    private JTextArea argsTextArea;
-
+    private JPanel panel;
+    private JLabel nomTxt = new JLabel("Valeur : ");
+    private JButton creuseButton = new JButton("Creuse");
+    private JButton pleineButton = new JButton("Pleine");
+    private JButton plusButton = new JButton("+");
+    private JButton clearButton = new JButton("Clear");
+    private JTextField argumentsArea = new JTextField(20);
+    private static Logger logger = Logger.getLogger(String.valueOf(CliGui.class));
     public CliGui() {
-        setTitle("Arguments de la ligne de commande");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 300);
+        super();
+        this.setLayout(new BorderLayout());
 
-        panel = new JPanel();
-        panel.setLayout(new FlowLayout());
-        panel2=new JPanel();
-        
+                JPanel buttonCpplus = new JPanel(new FlowLayout());
+                this.add(buttonCpplus, BorderLayout.NORTH);
+                buttonCpplus.add(creuseButton);
+                buttonCpplus.add(pleineButton);
+                buttonCpplus.add(plusButton);
 
-        creuseButton = new JButton("Creuse (C)");
-        creuseButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                argsTextArea.append(" -C");
+                JPanel argumentsAreaCentre = new JPanel(new GridLayout(1, 1));
+                this.add(argumentsAreaCentre, BorderLayout.CENTER);
+                argumentsAreaCentre.add(nomTxt);
+                argumentsAreaCentre.add(argumentsArea);
+
+
+                JPanel buttonClearBas = new JPanel(new FlowLayout());
+                this.add(buttonClearBas, BorderLayout.SOUTH);
+                buttonClearBas.add(clearButton);
+
+
+                this.pleineButton.addActionListener(new ActionAjouterPleine());
+                this.creuseButton.addActionListener(new ActionAjouterCreuse());
+                this.plusButton.addActionListener(new ActionAjouterPlus());
+                this.clearButton.addActionListener(new ActionClear());
+
+
+        }
+
+
+    public class ActionAjouterPleine implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
+            String currentText = argumentsArea.getText();
+            if  (currentText.matches(".*(-[KAPEC]\\s+|^[KAPEC]\\s+).*")) {
+                argumentsArea.setText(argumentsArea.getText()+"-P ");
+            } else {
+                argumentsArea.setText("");
+                argumentsArea.setText("-P ");
             }
-        });
-
-        pleineButton = new JButton("Pleine (P)");
-        pleineButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                argsTextArea.append(" -P");
-            }
-        });
-
-        plusButton = new JButton("+");
-        plusButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String input = JOptionPane.showInputDialog("Entrez une option :");
-                if (input != null && input.length() > 0) {
-                    argsTextArea.append(" " + input);
-                }
-            }
-        });
-
-        clearButton = new JButton("Clear");
-        clearButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                argsTextArea.setText("");
-                }
-
-        });
-
-
-        argsTextArea = new JTextArea(2, 30);
-        argsTextArea.setEditable(false);
-
-        panel.add(creuseButton);
-        panel.add(pleineButton);
-        panel.add(plusButton);
-        panel.add(argsTextArea);
-        panel.add(clearButton);
-
-        add(panel);
-
-        setVisible(true);
+        }
     }
 
+    /*<!DOCTYPE cli [
+<!ELEMENT cli (argument*)>
+<!ELEMENT argument (#PCDATA)>
+<!ATTLIST argument
+          acces (A|I|P|C) #REQUIRED
+          nb CDATA #IMPLIED>
+]>*/
+
+    public class ActionAjouterCreuse implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
+            String currentText = argumentsArea.getText();
+            if  (currentText.matches(".*(-[KAPEC]\\s+|^[KAPEC]\\s+).*")) {
+               argumentsArea.setText(argumentsArea.getText()+"-C ");
+            } else {
+                argumentsArea.setText("");
+                argumentsArea.setText("-C ");
+            }
+        }
+
+    }
+
+    public class ActionClear implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
+            argumentsArea.setText(" ");
+        }
+    }
+
+    public class ActionAjouterPlus implements ActionListener {
+        public void actionPerformed(ActionEvent evt) {
+
+                String input = JOptionPane.showInputDialog("Entrez une option :");
+                try {
+                    if (input != null && input.length() > 0) {
+                        if (!"KAPEC".contains(input)) {
+                            throw new IllegalArgumentException("Option inconnue");
+                        }
+                        argumentsArea.setText(argumentsArea.getText() + " -" + input.toUpperCase());
+                    }
+                } catch (IllegalArgumentException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+    }
+    public static JFrame newJFrame(String titre) {
+        JFrame fenetre = new JFrame(titre);
+        CliGui cliGui1=new CliGui();
+        fenetre.getContentPane().add(cliGui1);
+        fenetre.pack();
+        fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        return fenetre;
+    }
+    public static void exemple1() {
+        JFrame frame = newJFrame("Fenêtre");
+        frame.setLocation(300, 100);
+        frame.setVisible(true);
+
+
+    }
 
 }
