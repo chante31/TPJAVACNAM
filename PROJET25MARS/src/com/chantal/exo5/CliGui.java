@@ -62,13 +62,6 @@ public class CliGui extends JPanel{
         }
     }
 
-    /*<!DOCTYPE cli [
-<!ELEMENT cli (argument*)>
-<!ELEMENT argument (#PCDATA)>
-<!ATTLIST argument
-          acces (A|I|P|C) #REQUIRED
-          nb CDATA #IMPLIED>
-]>*/
 
     public class ActionAjouterCreuse implements ActionListener {
         public void actionPerformed(ActionEvent evt) {
