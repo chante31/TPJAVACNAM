@@ -1,6 +1,6 @@
 package com.chantal.exo4;
 
-import java.util.List;
+import com.chantal.exo4new.Configuration;
 
 public  class PageRankClassiqueExo4 {
     public static Configuration configuration(String... args) {
