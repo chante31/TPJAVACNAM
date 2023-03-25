@@ -1,10 +1,11 @@
-package com.chantal.exo4;
+package com.chantal.exo4new;
+
 
 public class Configuration {
-    int indice = 0;
-    double epsilon = 0.0;
-    double alpha = 0.0;
-    Mode mode = Mode.CREUSE;
+    public int indice = 21;
+    public double epsilon = 0.0;
+    public double alpha = 0.0;
+    public Mode mode = Mode.CREUSE;
 
     @Override public String toString() {
         return "alpha=" + alpha + ", epsilon=" + epsilon
