@@ -24,69 +24,92 @@ public class PageRankCli implements Cli {
         return false;
     }
 
-    public String getValue(String access) {
+    /*public String getValue(String access) {
         return values.get(access);
     }
 
     public List<Option> getOptions() {
         return this.options;
-    }
-
-    public void parse(String[] args) {
-        for (int i = 0; i < args.length; i++) {
-            String arg = args[i];
-            if (arg.startsWith("-")) {
-                String access = arg.substring(1);
-                String value = null;
-                if (i + 1 < args.length && !args[i + 1].startsWith("-")) {
-                    value = args[i + 1];
-                    i++;
-                }
-                values.put(access, value);
+    }*/
+    public String getValue(String access) {
+        Option option = getOption(access);
+        if (option != null && option.hasValue()) {
+            String value = option.getValue();
+            if (value != null && !value.isEmpty()) {
+                return value;
             }
         }
+        return null;
     }
 
-    public Configuration getConfiguration() {
-        Configuration config = new Configuration();
-
+    public Option getOption(String access) {
         for (Option option : options) {
-            if (hasOption(option.getAccess())) {
-                String value = getValue(option.getAccess());
-                if (isNumeric(value)) {
-                    switch (option.getAccess()) {
-                        case "K":
-                            config.indice = Integer.parseInt(value);
-                            break;
-                        case "E":
-                            config.epsilon = Double.parseDouble(value);
-                            break;
-                        case "A":
-                            config.alpha = Double.parseDouble(value);
-                            break;
-                        case "C":
-                            config.mode = Mode.CREUSE;
-                            break;
-                        case "P":
-                            config.mode = Mode.PLEINE;
-                            break;
+            if (option.getAccess().equals(access)) {
+                return option;
+            }
+        }
+        return null;
+    }
+
+
+    public Configuration getConfiguration() throws Exception {
+
+            Configuration config = new Configuration();
+            boolean hasCreuse = false;
+            boolean hasPleine = false;
+        try {
+            for (Option option : options) {
+                if (hasOption(option.getAccess())) {
+                    String value = getValue(option.getAccess());
+                    if (value != null) {
+                        switch (option.getAccess()) {
+                            case "K":
+                                try {
+                                    config.indice = Integer.parseInt(value);
+                                } catch (NumberFormatException e) {
+                                    System.err.println("La valeur de l'option K est invalide: " + value);
+                                }
+                                break;
+                            case "E":
+                                try {
+                                    config.epsilon = Double.parseDouble(value);
+                                } catch (NumberFormatException e) {
+                                    System.err.println("La valeur de l'option E est invalide:: " + value);
+                                }
+                                break;
+                            case "A":
+                                try {
+                                    config.alpha = Double.parseDouble(value);
+                                } catch (NumberFormatException e) {
+                                    System.err.println("La valeur de l'option A est invalide:: " + value);
+                                }
+                                break;
+                            case "C":
+                                config.mode = Mode.CREUSE;
+                                hasCreuse = true;
+                                break;
+                            case "P":
+                                config.mode = Mode.PLEINE;
+                                hasPleine = true;
+                                break;
+                            default:
+                                System.err.println("option inconnue: " + option.getAccess());
+                        }
+
                     }
                 }
             }
+            if (hasCreuse && hasPleine) {
+                throw new IllegalArgumentException("Veuillez choisir entre le mode creuse et le mode pleine");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
         }
 
         return config;
-    }
 
-    private boolean isNumeric(String str) {
-        if (str == null) {
-            return false;
-        }
-        try {
-            double d = Double.parseDouble(str);
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-        return true;
-    }
+}
+
+
 }

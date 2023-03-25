@@ -12,3 +12,5 @@ public class Configuration {
                 + ", indice=" + indice + ", mode=" + mode;
     }
 }
+
+
