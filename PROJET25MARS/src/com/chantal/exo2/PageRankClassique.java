@@ -1,3 +1,5 @@
+package com.chantal.exo2;
+
 public class PageRankClassique {
 
 	public static void main(String... args) {

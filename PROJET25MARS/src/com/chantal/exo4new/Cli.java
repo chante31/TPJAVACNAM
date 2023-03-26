@@ -1,8 +1,11 @@
 package com.chantal.exo4new;
 
+import java.util.List;
+
 public interface Cli {
 
-    void addOption(Option option);
+    List<Option> addOption(Option option);
+    void addAction();
 
 
 

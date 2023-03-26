@@ -1,3 +1,5 @@
+package com.chantal.exo7;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

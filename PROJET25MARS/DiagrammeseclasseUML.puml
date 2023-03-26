@@ -1,0 +1,59 @@
+@startuml
+
+interface Cli {
+    +addOption(option: Option): void
+    +addAction(): void
+}
+
+class Option {
+    -access: String
+    -description: String
+    -hasValue: boolean
+    -value: String
+    +getAccess(): String
+    +getDescription(): String
+    +hasValue(): boolean
+    +getValue(): String
+    +setValue(value: String): void
+    +Option(access: String, description: String, hasValue: boolean, value: String)
+}
+
+enum Mode {
+    PLEINE
+    CREUSE
+}
+
+class Configuration {
+    -indice: int
+    -epsilon: double
+    -alpha: double
+    -mode: Mode
+    +toString(): String
+}
+
+interface Cli {
+    +addOption(option: Option): void
+    +addAction(): void
+}
+
+class PageRankCli implements Cli {
+    -options: List<Option>
+    -values: Map<String, String>
+    +addOption(option: Option): void
+    +addAction(): void
+    +hasOption(access: String): boolean
+    +getOption(access: String): Option
+    +getValue(access: String): String
+    +getConfiguration(): Configuration
+}
+
+class PageRank {
+    +main(args: String[]): void
+}
+
+Configuration -- PageRankCli
+Option -- Cli
+PageRank-- Option
+
+
+@enduml

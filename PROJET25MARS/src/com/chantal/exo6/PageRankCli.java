@@ -1,4 +1,5 @@
-package com.chantal.exo4new;
+package com.chantal.exo6;
+
 
 
 import java.util.ArrayList;
@@ -11,7 +12,12 @@ public class PageRankCli implements Cli {
     @Override
     public List<Option> addOption(Option option) {
         options.add(option);
-        return null;
+        return options;
+    }
+
+    @Override
+    public void addOption(com.chantal.exo4new.Option option) {
+
     }
 
     @Override

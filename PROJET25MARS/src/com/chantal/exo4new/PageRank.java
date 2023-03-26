@@ -8,7 +8,7 @@ public class PageRank {
         Option optionIndice = new Option("K", "Valeur de l'indice à calculer", true, "7");
         Option optionPrecision = new Option("E", "Valeur de la précision à atteindre", true, "4.5");
         Option optionAlpha = new Option("A", "Valeur de alpha", true, "8.5");
-        Option optionCreuse = new Option("C", "Mode matrice creuse", true, "C");
+        Option optionCreuse = new Option("C", "Mode matrice creuse", false, "C");
         Option optionPleine = new Option("P", "Mode matrice pleine", true, "P");
 
         cli.addOption(optionIndice);
