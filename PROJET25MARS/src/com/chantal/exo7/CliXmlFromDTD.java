@@ -51,7 +51,9 @@ public class CliXmlFromDTD {
         TransformerFactory transformerFactory =TransformerFactory.newInstance();
         Transformer transformer=transformerFactory.newTransformer();
         DOMSource source=new DOMSource(document);
-        StreamResult streamResult=new StreamResult(new File("C:\\XML\\data.xml"));
+        String path="C:\\XML\\data.xml";
+        StreamResult streamResult=new StreamResult(new File(path));
         transformer.transform(source,streamResult);
+        System.out.println("le fichier xml a été créée dans le dossier "+path );
     }
 }
